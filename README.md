@@ -1,19 +1,23 @@
-# Market Intelligence Lab V2
+# Market Intelligence Lab V3
 
-Arabic-first, mobile-friendly, research-only dashboard for **GLD** (gold ETF) and **SPY** (S&P 500 ETF).
+Arabic-first, research-only Streamlit dashboard for GLD and SPY. **No real orders, brokerage integrations, or verified trading returns.**
 
 ## Features
-- Automatically loads both markets when opened (Yahoo Finance via yfinance, one-hour cache).
-- Separate five-trading-session probability forecasts and historical expanding-window evaluations.
-- Compares model accuracy with majority-class baseline and reports Brier score.
-- Explains wait/watch status in Arabic and suppresses conditional signals if the price feed is stale.
-- Includes historical forecast tables and CSV downloads.
-- Paper portfolio remains **inactive at JOD 300** pending a future leakage-safe, next-session execution backtest. No real trades, no brokerage connection, no background monitoring.
+- On-page automatic price analysis and 5-session statistical direction estimates.
+- Expanding-window historical evaluation; conservative wait/watch labels and stale-price suppression.
+- Scheduled forward-prediction journal via GitHub Actions (one row per symbol per price date, no retroactive rewriting).
+- CSV download, mobile-friendly interface, and optional reference paper capital.
 
-## Deploy from iPhone
-1. In the existing GitHub repository, replace `app.py` and `requirements.txt` with the files in this folder; optionally replace `README.md`.
-2. Commit changes to `main`.
-3. Streamlit Community Cloud should redeploy the same app automatically. If needed, reboot the app from its management screen.
+## iPhone update — important
+1. In GitHub repository `hmaaytah-lgtm/market-intelligence-lab`, upload/replace the top-level `app.py`, `engine.py`, `scanner.py`, `requirements.txt`, `README.md` from this package. Do **not** upload the ZIP as a single file.
+2. To add the scheduled task, GitHub must have `.github/workflows/scan.yml` in the exact nested path. The easiest reliable approach is GitHub **Add file → Create new file**, type `.github/workflows/scan.yml` in the filename, then paste the YAML from the provided package; commit to `main`. Alternatively upload the workflow file into an existing `.github/workflows/` directory.
+3. Go to repository **Actions** → **Daily research signals** → **Run workflow** to test. Actions may need enabling. Check repository Settings → Actions → General → Workflow permissions → **Read and write permissions** if the CSV commit fails. Avoid enabling unrelated workflows.
+4. Streamlit Community Cloud redeploys after the `main` commit. Keep the existing app URL and ensure the entrypoint is `app.py`.
+5. Once the scheduled workflow runs successfully, `signals.csv` appears in the repository. It may take time for Streamlit's deployed app to refresh after GitHub commits.
 
-## Important limitations
-The forecasts are uncalibrated estimates, not guarantees. ETFs differ from the spot gold price and S&P 500 index. Yahoo Finance prices may be delayed or unavailable. Historical evaluation is exploratory, not evidence of tradable profit. **No capital should be committed on the basis of these outputs.**
+## Limitations
+- GitHub scheduled workflows may run late or be skipped; not continuous monitoring or push notifications.
+- The daily scheduled task is at 23:15 UTC Monday–Friday, usually after US equity market close, but market holidays, DST, feed delays and maintenance can cause stale/missing records.
+- The recorded prediction uses the latest available close. The timestamp is when the prediction was recorded; a row does **not** mean an executable trade occurred.
+- No paper-trading P&L yet: next-session fill assumptions, costs, position sizing and resolved outcomes must be added and validated separately.
+- No real money should be risked on these research outputs.
