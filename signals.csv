@@ -11,3 +11,5 @@ recorded_at_utc,symbol,price_date,close_usd,p_up_5d,status,data_source
 2026-11-05T23:50:20+00:00,SPY,2026-11-05,733.0,0.640969,فرصة للمراقبة فقط,Yahoo Finance via yfinance
 2026-11-06T23:44:41+00:00,GLD,2026-11-06,372.52,0.477969,انتظار,Yahoo Finance via yfinance
 2026-11-06T23:44:44+00:00,SPY,2026-11-06,735.29,0.570154,انتظار,Yahoo Finance via yfinance
+2026-11-09T23:46:54+00:00,GLD,2026-11-09,379.53,0.457809,انتظار,Yahoo Finance via yfinance
+2026-11-09T23:46:57+00:00,SPY,2026-11-09,752.69,0.542762,انتظار,Yahoo Finance via yfinance
